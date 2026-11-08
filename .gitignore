@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Variables de entorno y secretos
+.env
+*.env
+!.env.example
+
+# Base de datos local residual
+*.sqlite3
+
+# Django
+staticfiles/
+media/
+*.log
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Frontend (Node / Vite)
+node_modules/
+dist/
+.vite/
+
