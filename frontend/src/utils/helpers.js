@@ -52,7 +52,7 @@ export function extractApiError(error, defaultMessage = "Ocurrió un error inesp
   if (!error) return defaultMessage;
 
   if (!error.response) {
-    return "No fue posible conectar con el servidor de Aromatch. Verifica que el backend esté en ejecución en http://127.0.0.1:8000.";
+    return "No fue posible conectar con el servidor de Aromatch. Si el servidor estaba inactivo, espera unos segundos y vuelve a intentarlo.";
   }
 
   const data = error.response.data;
