@@ -99,14 +99,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+_db_host = (os.getenv("DB_HOST") or "").strip()
+_db_user = (os.getenv("DB_USER") or "postgres").strip()
+_supabase_ref = (os.getenv("SUPABASE_PROJECT_REF") or "htpifpvrltugimxlvjno").strip()
+
+# Si se utiliza el Session/Transaction Pooler compartido de Supabase (*.pooler.supabase.com),
+# el usuario debe incluir el identificador del proyecto (postgres.<project_ref>).
+if "pooler.supabase.com" in _db_host and "." not in _db_user and _supabase_ref:
+    _db_user = f"{_db_user}.{_supabase_ref}"
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
+        "NAME": (os.getenv("DB_NAME") or "postgres").strip(),
+        "USER": _db_user,
         "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "HOST": _db_host,
+        "PORT": (os.getenv("DB_PORT") or "5432").strip(),
         "OPTIONS": {
             "sslmode": "require",
         },
